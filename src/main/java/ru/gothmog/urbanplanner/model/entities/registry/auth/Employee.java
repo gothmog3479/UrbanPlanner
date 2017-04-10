@@ -2,7 +2,6 @@ package ru.gothmog.urbanplanner.model.entities.registry.auth;
 
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.CacheConcurrencyStrategy;
-import org.hibernate.annotations.Index;
 import org.hibernate.envers.Audited;
 import ru.gothmog.urbanplanner.core.audit.AuditAnnotation;
 import ru.gothmog.urbanplanner.model.entities.CloneableEntity;
@@ -15,7 +14,7 @@ import javax.persistence.*;
  * @author d.grushetskiy
  */
 @Entity
-@Table(name = "employee")
+@Table(name = "employee", indexes = {@javax.persistence.Index(name = "idx_employee_username", columnList = "username", unique = true)})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Audited
 @AuditAnnotation(title = "Сотрудник")
@@ -39,7 +38,6 @@ public class Employee implements RegistryItem, CloneableEntity {
 
     @OneToOne(cascade = CascadeType.ALL, optional = false)
     @JoinColumn(name = "username")
-    @Index(name = "idx_employee_username")
     private EmployeeUser user;
 
     // должность
