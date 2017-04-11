@@ -8,7 +8,7 @@ import ru.gothmog.urbanplanner.model.entities.registry.auth.Employee;
  * @author d.grushetskiy
  */
 @Repository
-public class EmployeeDAO  {
+public class EmployeeDAO {
 
     private SessionFactory sessionFactory;
 

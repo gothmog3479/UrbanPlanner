@@ -31,12 +31,12 @@ public class CloneHelper {
         return entity;
     }
 
-    public static List<EmployeeAuthority> cloneAuthoritiesList(List<EmployeeAuthority> list){
-        List<EmployeeAuthority> cloneAuthorities=new LinkedList<EmployeeAuthority>();
-        for(EmployeeAuthority theAuthority:list){
-            try{
+    public static List<EmployeeAuthority> cloneAuthoritiesList(List<EmployeeAuthority> list) {
+        List<EmployeeAuthority> cloneAuthorities = new LinkedList<EmployeeAuthority>();
+        for (EmployeeAuthority theAuthority : list) {
+            try {
                 cloneAuthorities.add(theAuthority.clone());
-            }catch(CloneNotSupportedException e){
+            } catch (CloneNotSupportedException e) {
                 LoggerUtil.error(e.getMessage());
             }
         }

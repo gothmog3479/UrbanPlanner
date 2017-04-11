@@ -51,6 +51,7 @@ public class Employee implements RegistryItem, CloneableEntity {
     public Long getId() {
         return id;
     }
+
     @Override
     public void setId(Long id) {
         this.id = id;
@@ -122,6 +123,7 @@ public class Employee implements RegistryItem, CloneableEntity {
     public String getTitle() {
         return getFullName();
     }
+
     @Override
     public String toString() {
         return getTitle();
@@ -147,30 +149,31 @@ public class Employee implements RegistryItem, CloneableEntity {
 
     @Override
     public Employee clone() throws CloneNotSupportedException {
-        Employee ret_val=new Employee();
+        Employee ret_val = new Employee();
         charge(ret_val);
         return ret_val;
     }
 
     @Override
     public Employee lazyClone() throws CloneNotSupportedException {
-        Employee ret_val=new Employee();
+        Employee ret_val = new Employee();
         charge(ret_val);
         return ret_val;
     }
 
     @Override
-    public void lazyCharge(IsogdEntity entity) throws CloneNotSupportedException{
+    public void lazyCharge(IsogdEntity entity) throws CloneNotSupportedException {
     }
+
     @Override
     public void charge(IsogdEntity entity) throws CloneNotSupportedException {
-        Employee ret_val=(Employee)entity;
+        Employee ret_val = (Employee) entity;
         ret_val.setId(getId());
         ret_val.setFirstName(getFirstName());
         ret_val.setPatronymic(getPatronymic());
         ret_val.setLastName(getLastName());
 
-        if(getUser()!=null){
+        if (getUser() != null) {
             ret_val.setUser(getUser().clone());
         }
 

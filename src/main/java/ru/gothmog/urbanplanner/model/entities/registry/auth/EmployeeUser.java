@@ -114,27 +114,28 @@ public class EmployeeUser implements Serializable, IsogdEntity, CloneableEntity 
 
     @Override
     public EmployeeUser clone() throws CloneNotSupportedException {
-        EmployeeUser ret_val=new EmployeeUser();
+        EmployeeUser ret_val = new EmployeeUser();
         charge(ret_val);
         return ret_val;
     }
 
     public EmployeeUser lazyClone() throws CloneNotSupportedException {
-        EmployeeUser ret_val=new EmployeeUser();
+        EmployeeUser ret_val = new EmployeeUser();
         lazyCharge(ret_val);
         return ret_val;
     }
 
     @Override
-    public void lazyCharge(IsogdEntity entity) throws CloneNotSupportedException{
-        EmployeeUser ret_val=(EmployeeUser)entity;
+    public void lazyCharge(IsogdEntity entity) throws CloneNotSupportedException {
+        EmployeeUser ret_val = (EmployeeUser) entity;
         ret_val.setUsername(getUsername());
         ret_val.setPassword(getPassword());
         ret_val.setEnabled(getEnabled());
     }
+
     @Override
     public void charge(IsogdEntity entity) throws CloneNotSupportedException {
-        EmployeeUser ret_val=(EmployeeUser)entity;
+        EmployeeUser ret_val = (EmployeeUser) entity;
         lazyCharge(entity);
         ret_val.setAuthorities(CloneHelper.cloneAuthoritiesList(getAuthorities()));
 

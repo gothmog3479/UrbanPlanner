@@ -21,8 +21,8 @@ public class EmployeeAuthority implements IsogdEntity, CloneableEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = { CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH })
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,
+            CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinColumn(name = "username")
     private EmployeeUser user;
 
@@ -74,30 +74,31 @@ public class EmployeeAuthority implements IsogdEntity, CloneableEntity {
 
     @Override
     public EmployeeAuthority clone() throws CloneNotSupportedException {
-        EmployeeAuthority ret_val=new EmployeeAuthority();
+        EmployeeAuthority ret_val = new EmployeeAuthority();
         charge(ret_val);
         return ret_val;
     }
 
     public EmployeeAuthority lazyClone() throws CloneNotSupportedException {
-        EmployeeAuthority ret_val=new EmployeeAuthority();
+        EmployeeAuthority ret_val = new EmployeeAuthority();
         lazyCharge(ret_val);
         return ret_val;
     }
 
     @Override
-    public void lazyCharge(IsogdEntity entity) throws CloneNotSupportedException{
-        EmployeeAuthority ret_val=(EmployeeAuthority)entity;
+    public void lazyCharge(IsogdEntity entity) throws CloneNotSupportedException {
+        EmployeeAuthority ret_val = (EmployeeAuthority) entity;
         ret_val.setId(getId());
-        if(getAuthority()!=null){
+        if (getAuthority() != null) {
             ret_val.setAuthority(getAuthority());
         }
     }
+
     @Override
     public void charge(IsogdEntity entity) throws CloneNotSupportedException {
-        EmployeeAuthority ret_val=(EmployeeAuthority)entity;
+        EmployeeAuthority ret_val = (EmployeeAuthority) entity;
         lazyCharge(entity);
-        if(getUser()!=null){
+        if (getUser() != null) {
             ret_val.setUser(getUser().lazyClone());
         }
 
