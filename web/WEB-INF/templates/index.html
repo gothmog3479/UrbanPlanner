@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Hello Thymeleaf</title>
+    <link rel="icon" th:href="@{/static/img/icon/favicon.ico}"/>
+    <title>UrbanPlanner</title>
 </head>
 <body>
-<h3 th:text="${hello}"></h3>
+<img th:src="@{/static/img/access_denied.png}" class="img-responsive center-block" width="367" height="498" alt="Logo" />
+<h1 th:text="${hello}"></h1>
 </body>
 </html>

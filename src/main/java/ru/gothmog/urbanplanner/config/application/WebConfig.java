@@ -20,8 +20,19 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"ru.gothmog.urbanplanner.config", "ru.gothmog.urbanplanner.model.dao", "ru.gothmog.urbanplanner.model.entities", "ru.gothmog.urbanplanner.controller", "ru.gothmog.urbanplanner.core", "ru.gothmog.urbanplanner.*"})
+@ComponentScan({"ru.gothmog.urbanplanner.config",
+        "ru.gothmog.urbanplanner.model.dao",
+        "ru.gothmog.urbanplanner.model.entities",
+        "ru.gothmog.urbanplanner.controller.*",
+        "ru.gothmog.urbanplanner.core",
+        "ru.gothmog.urbanplanner.*"})
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
+    private static final String TEMPLATES = "/WEB-INF/templates/";
+
+    private static final String RESOURCES_LOCATION = "/static/";
+
+    private static final String RESOURCES_HANDLER = RESOURCES_LOCATION + "**";
+
     private ApplicationContext applicationContext;
 
     public WebConfig() {
@@ -29,7 +40,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     }
 
     @Override
-    public void setApplicationContext(final ApplicationContext applicationContext)
+    public void setApplicationContext(ApplicationContext applicationContext)
             throws BeansException {
         this.applicationContext = applicationContext;
     }
@@ -45,9 +56,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
     @Override
     public void addResourceHandlers(final ResourceHandlerRegistry registry) {
         super.addResourceHandlers(registry);
-        registry.addResourceHandler("/images/**").addResourceLocations("/WEB-INF/static/images/");
-        registry.addResourceHandler("/css/**").addResourceLocations("/WEB-INF/static/css/");
-        registry.addResourceHandler("/js/**").addResourceLocations("/WEB-INF/static/js/");
+        registry.addResourceHandler(RESOURCES_HANDLER).addResourceLocations(RESOURCES_LOCATION);
     }
 
     /*
@@ -58,6 +67,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
         messageSource.setBasename("Messages");
         messageSource.setDefaultEncoding("UTF-8");
+        messageSource.setCacheSeconds(5);
         return messageSource;
     }
 
@@ -80,7 +90,7 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         SpringResourceTemplateResolver templateResolver = new SpringResourceTemplateResolver();
         templateResolver.setApplicationContext(this.applicationContext);
         templateResolver.setCharacterEncoding("UTF-8");
-        templateResolver.setPrefix("/WEB-INF/templates/");
+        templateResolver.setPrefix(TEMPLATES);
         templateResolver.setSuffix(".html");
         // HTML is the default value, added here for the sake of clarity.
         templateResolver.setTemplateMode(TemplateMode.HTML);
