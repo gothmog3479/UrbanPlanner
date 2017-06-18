@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" th:lang="${#locale.language}">
+<head th:include="fragments/imports :: imports">
+    <meta charset="UTF-8">
+    <title id="pageTitle">Access Denied</title>
+</head>
+<body>
+    <div class="container" th:replace="fragments/navbar :: navbar"></div>
+
+    <div class="container">
+        <img th:src="@{/static/img/access_denied.png}" class="img-responsive center-block" width="367" height="498" alt="Logo" />
+        <h2 th:text="#{page.access_denied}"></h2>
+    </div>
+
+    <div class="container" th:replace="fragments/footer :: footer"></div>
+</body>
+</html>

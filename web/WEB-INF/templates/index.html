@@ -1,12 +1,18 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <link rel="icon" th:href="@{/static/img/icon/favicon.ico}"/>
-    <title>UrbanPlanner</title>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/imports :: imports">
+    <title id="pageTitle">UrbanPlanner</title>
 </head>
 <body>
-<img th:src="@{/static/img/access_denied.png}" class="img-responsive center-block" width="367" height="498" alt="Logo" />
-<h1 th:text="${hello}"></h1>
+<section id="container" class="">
+<div class="container" th:replace="fragments/header :: header"></div>
+
+<div class="container" th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container" th:replace="fragments/main :: main"></div>
+
+<div class="container" th:replace="fragments/footer :: footer"></div>
+</section>
+<div th:include="fragments/imports_body_js :: imports_body_js"></div>
 </body>
 </html>
