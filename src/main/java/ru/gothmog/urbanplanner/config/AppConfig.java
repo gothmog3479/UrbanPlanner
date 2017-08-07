@@ -20,7 +20,7 @@ public class AppConfig {
     private HibernateConfig hibernateConfig;
 
     @Bean
-    public UserDetailsService userDetailsService(){
+    public UserDetailsService userDetailsService() {
         JdbcDaoImpl jdbcImpl = new JdbcDaoImpl();
         jdbcImpl.setDataSource(hibernateConfig.dataSource());
         jdbcImpl.setUsersByUsernameQuery(environment.getRequiredProperty("usersByQuery"));

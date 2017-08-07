@@ -8,6 +8,7 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -23,7 +24,7 @@ import org.thymeleaf.templatemode.TemplateMode;
 @ComponentScan({"ru.gothmog.urbanplanner.config",
         "ru.gothmog.urbanplanner.model.dao",
         "ru.gothmog.urbanplanner.model.entities",
-        "ru.gothmog.urbanplanner.controller.*",
+        "ru.gothmog.urbanplanner.controller",
         "ru.gothmog.urbanplanner.core",
         "ru.gothmog.urbanplanner.*"})
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
@@ -135,5 +136,11 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver();
         multipartResolver.setMaxUploadSize(100000000);
         return multipartResolver;
+    }
+
+    @Bean
+    public BCryptPasswordEncoder passwordEncoder() {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder;
     }
 }

@@ -12,8 +12,8 @@ public class AppController {
     private static final Logger LOG = LoggerFactory.getLogger(AppController.class);
 
     @RequestMapping("/")
-    public String hello (Model model){
+    public String hello(Model model) {
         model.addAttribute("hello", "Hello HH!");
-        return "index";
+        return "welcome";
     }
 }

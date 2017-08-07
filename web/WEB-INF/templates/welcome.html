@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:include="fragments/imports :: imports">
+    <title id="pageTitle">UrbanPlanner</title>
+</head>
+<body>
+<section id="container" class="">
+<div class="container" th:replace="fragments/header :: header"></div>
+
+<div class="container" th:replace="fragments/navbar :: navbar"></div>
+
+<div class="container" th:replace="fragments/main :: main"></div>
+
+<div class="container" th:replace="fragments/footer :: footer"></div>
+</section>
+<div th:include="fragments/imports_body_js :: imports_body_js"></div>
+</body>
+</html>

@@ -5,6 +5,7 @@ import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatche
 import ru.gothmog.urbanplanner.config.application.WebConfig;
 
 import javax.servlet.Filter;
+import javax.servlet.ServletRegistration;
 
 public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServletInitializer {
     @Override
@@ -31,5 +32,11 @@ public class WebAppInitializer extends AbstractAnnotationConfigDispatcherServlet
                 new CharacterEncodingFilter();
         characterEncodingFilter.setEncoding("utf-8");
         return new Filter[]{characterEncodingFilter};
+    }
+
+    @Override
+    protected void customizeRegistration(ServletRegistration.Dynamic registration) {
+        registration.setInitParameter("defaultHtmlEscape", "true");
+        registration.setInitParameter("spring.profiles.active", "default");
     }
 }

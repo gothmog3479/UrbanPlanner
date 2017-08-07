@@ -52,7 +52,7 @@ public class HibernateConfig {
         return properties;
     }
 
-    @Bean(destroyMethod = "close")
+    @Bean
     public DataSource dataSource() {
         if (dataSource == null) {
             HikariConfig hikariConfig = new HikariConfig();
