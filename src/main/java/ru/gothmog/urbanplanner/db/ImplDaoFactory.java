@@ -10,9 +10,10 @@ import java.sql.SQLException;
 
 /**
  * implementation DaoFactory
+ *
  * @author d.grushetskiy
  */
-public class ImplDaoFactory implements DaoFactory{
+public class ImplDaoFactory implements DaoFactory {
     private static final Logger log = LoggerFactory.getLogger(ImplDaoFactory.class);
 
     private final static String DRIVER = "org.postgresql.Driver";

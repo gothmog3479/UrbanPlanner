@@ -6,6 +6,7 @@ import java.sql.SQLException;
 
 /**
  * Interface for communication with the database
+ *
  * @author d.grushetskiy
  */
 public interface DaoFactory {

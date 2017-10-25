@@ -1,24 +1,24 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity4">
 <head th:include="fragments/imports :: imports">
     <title id="pageTitle">Navbar</title>
 </head>
 <body>
 <div th:fragment="navbar">
     <aside>
-        <div id="sidebar"  class="nav-collapse ">
+        <div  id="sidebar"  class="nav-collapse ">
             <!-- sidebar menu start-->
             <ul class="sidebar-menu">
                 <li class="active">
-                    <a class="" href="index.html">
+                    <a sec:authorize="isAuthenticated()" class="" href="index.html">
                         <i class="icon_house_alt"></i>
-                        <span>Dashboard</span>
+                        <span>Разделы ИСОГД</span>
                     </a>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;" class="">
+                    <a sec:authorize="isAnonymous()" href="javascript:;" class="">
                         <i class="icon_document_alt"></i>
-                        <span>Forms</span>
+                        <span>Адреса</span>
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
@@ -27,9 +27,9 @@
                     </ul>
                 </li>
                 <li class="sub-menu">
-                    <a href="javascript:;" class="">
+                    <a sec:authorize="isAuthenticated()" href="javascript:;" class="">
                         <i class="icon_desktop"></i>
-                        <span>UI Fitures</span>
+                        <span>Физические лица</span>
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
@@ -39,24 +39,24 @@
                     </ul>
                 </li>
                 <li>
-                    <a class="" href="widgets.html">
+                    <a sec:authorize="isAuthenticated()" class="" href="widgets.html">
                         <i class="icon_genius"></i>
-                        <span>Widgets</span>
+                        <span>Юридические лица</span>
                     </a>
                 </li>
                 <li>
-                    <a class="" href="chart-chartjs.html">
+                    <a sec:authorize="isAuthenticated()" class="" href="chart-chartjs.html">
                         <i class="icon_piechart"></i>
-                        <span>Charts</span>
+                        <span>Юридические лица</span>
 
                     </a>
 
                 </li>
 
                 <li class="sub-menu">
-                    <a href="javascript:;" class="">
+                    <a sec:authorize="isAuthenticated()" href="javascript:;" class="">
                         <i class="icon_table"></i>
-                        <span>Tables</span>
+                        <span>Входящие заявки</span>
                         <span class="menu-arrow arrow_carrot-right"></span>
                     </a>
                     <ul class="sub">
@@ -65,7 +65,7 @@
                 </li>
 
                 <li class="sub-menu">
-                    <a href="javascript:;" class="">
+                    <a sec:authorize="isAuthenticated()" href="javascript:;" class="">
                         <i class="icon_documents_alt"></i>
                         <span>Pages</span>
                         <span class="menu-arrow arrow_carrot-right"></span>

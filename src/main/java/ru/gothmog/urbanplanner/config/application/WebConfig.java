@@ -21,12 +21,13 @@ import org.thymeleaf.templatemode.TemplateMode;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan({"ru.gothmog.urbanplanner.config",
-        "ru.gothmog.urbanplanner.model.dao",
-        "ru.gothmog.urbanplanner.model.entities",
-        "ru.gothmog.urbanplanner.controller",
-        "ru.gothmog.urbanplanner.core",
-        "ru.gothmog.urbanplanner.*"})
+@ComponentScan({"ru.gothmog.urbanplanner.config.*",
+                "ru.gothmog.urbanplanner.model.dao",
+                "ru.gothmog.urbanplanner.model.entities",
+                "ru.gothmog.urbanplanner.controller",
+                "ru.gothmog.urbanplanner.core",
+                "ru.gothmog.urbanplanner.utility",
+                "ru.gothmog.urbanplanner.*"})
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private static final String TEMPLATES = "/WEB-INF/templates/";
 
@@ -138,9 +139,9 @@ public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationCon
         return multipartResolver;
     }
 
-    @Bean
-    public BCryptPasswordEncoder passwordEncoder() {
-        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
-        return bCryptPasswordEncoder;
-    }
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() {
+//        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+//        return bCryptPasswordEncoder;
+//    }
 }

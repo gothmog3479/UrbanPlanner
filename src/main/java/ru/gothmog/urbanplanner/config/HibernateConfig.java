@@ -49,6 +49,13 @@ public class HibernateConfig {
         properties.put("hibernate.javax.cache.provider", environment.getRequiredProperty("hibernate.javax.cache.provider"));
         properties.put("hibernate.cache.use_second_level_cache", environment.getRequiredProperty("hibernate.cache.use_second_level_cache"));
         properties.put("hibernate.cache.use_query_cache", environment.getRequiredProperty("hibernate.cache.use_query_cache"));
+
+        properties.put("hikari.dataSource.cachePrepStmts", environment.getRequiredProperty("hikari.dataSource.cachePrepStmts"));
+        properties.put("hikari.dataSource.prepStmtCacheSize", environment.getRequiredProperty("hikari.dataSource.prepStmtCacheSize"));
+        properties.put("hikari.dataSource.prepStmtCacheSqlLimit", environment.getRequiredProperty("hikari.dataSource.prepStmtCacheSqlLimit"));
+        properties.put("hikari.dataSource.useServerPrepStmts", environment.getRequiredProperty("hikari.dataSource.useServerPrepStmts"));
+        properties.put("hikari.idleTimeout", environment.getRequiredProperty("hikari.idleTimeout"));
+
         return properties;
     }
 

@@ -44,6 +44,9 @@ public class Employee implements RegistryItem, CloneableEntity {
     @Column(length = 512)
     private String job;
 
+    @Column(name = "email", nullable = false, length = 150)
+    private String email;
+
     @Column(name = "full_name", length = 512, nullable = false)
     private String fullName;
 
@@ -116,6 +119,14 @@ public class Employee implements RegistryItem, CloneableEntity {
 
     public void setFullName(String fullName) {
         this.fullName = fullName;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     @Override

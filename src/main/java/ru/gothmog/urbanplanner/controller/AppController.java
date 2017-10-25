@@ -7,13 +7,13 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/")
 public class AppController {
 
     private static final Logger LOG = LoggerFactory.getLogger(AppController.class);
 
     @RequestMapping("/")
     public String hello(Model model) {
-        model.addAttribute("hello", "Hello HH!");
         return "welcome";
     }
 }
