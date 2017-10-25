@@ -22,7 +22,7 @@ public class SecurityUtility {
         StringBuilder salt = new StringBuilder();
         Random rnd = new Random();
 
-        while (salt.length() < 32) {
+        while (salt.length() < 12) {
             int index = (int) (rnd.nextFloat() * SALTCHARS.length());
             salt.append(SALTCHARS.charAt(index));
         }
