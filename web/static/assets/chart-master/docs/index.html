@@ -41,7 +41,7 @@ var myNewChart = new Chart(ctx);</code></pre>
 				<p>After we've instantiated the Chart class on the canvas we want to draw on, Chart.js will handle the scaling for retina displays.</p>
 				<p>With the Chart class set up, we can go on to create one of the charts Chart.js has available. In the example below, we would be drawing a Polar area chart.</p>
 				<pre data-type="javascript"><code>new Chart(ctx).PolarArea(data,options);</code></pre>
-				<p>We call a method of the name of the chart we want to create. We pass in the data for that chart type, and the options for that chart as parameters. Chart.js will merge the options you pass in with the default options for that chart type.</p>
+				<p>We call a method of the nameAuthority of the chart we want to create. We pass in the data for that chart type, and the options for that chart as parameters. Chart.js will merge the options you pass in with the default options for that chart type.</p>
 			</article>	
 			
 <article id="lineChart">
@@ -668,7 +668,7 @@ var myNewChart = new Chart(ctx);</code></pre>
 				<ul>
 					<li>Initialise charts on load rather than DOMContentReady when using the library, as sometimes a race condition will occur, and it will result in an error when trying to get the 2d context of a canvas.</li>
 					<li>New VML DOM elements are being created for each animation frame and there is no hardware acceleration. As a result animation is usually slow and jerky, with flashing text. It is a good idea to dynamically turn off animation based on canvas support. I recommend using the excellent <a href="http://modernizr.com/" targer="_blank">Modernizr</a> to do this.</li>
-					<li>When declaring fonts, the library explorercanvas requires the font name to be in single quotes inside the string. For example, instead of your scaleFontFamily property being simply "Arial", explorercanvas support, use "'Arial'" instead. Chart.js does this for default values.</li>
+					<li>When declaring fonts, the library explorercanvas requires the font nameAuthority to be in single quotes inside the string. For example, instead of your scaleFontFamily property being simply "Arial", explorercanvas support, use "'Arial'" instead. Chart.js does this for default values.</li>
 					
 				</ul>
 				<h2>Bugs &amp; issues</h2>

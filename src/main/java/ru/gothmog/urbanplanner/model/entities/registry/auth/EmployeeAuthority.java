@@ -19,12 +19,13 @@ public class EmployeeAuthority implements IsogdEntity, CloneableEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @Column(name = "authorities_id")
     private Long id;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,
-            CascadeType.PERSIST, CascadeType.REFRESH})
-    @JoinColumn(name = "username")
-    private EmployeeUser user;
+//    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE,
+//            CascadeType.PERSIST, CascadeType.REFRESH})
+//    @JoinColumn(name = "username")
+//    private EmployeeUser user;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -46,13 +47,13 @@ public class EmployeeAuthority implements IsogdEntity, CloneableEntity {
         this.id = id;
     }
 
-    public EmployeeUser getUser() {
-        return user;
-    }
+//    public EmployeeUser getUser() {
+//        return user;
+//    }
 
-    public void setUser(EmployeeUser user) {
-        this.user = user;
-    }
+//    public void setUser(EmployeeUser user) {
+//        this.user = user;
+//    }
 
     public Authority getAuthority() {
         return authority;
@@ -98,9 +99,9 @@ public class EmployeeAuthority implements IsogdEntity, CloneableEntity {
     public void charge(IsogdEntity entity) throws CloneNotSupportedException {
         EmployeeAuthority ret_val = (EmployeeAuthority) entity;
         lazyCharge(entity);
-        if (getUser() != null) {
-            ret_val.setUser(getUser().lazyClone());
-        }
+//        if (getUser() != null) {
+//            ret_val.setUser(getUser().lazyClone());
+//        }
 
     }
 }

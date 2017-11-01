@@ -33,14 +33,18 @@ public enum Authority {
 
     ROLE_BLOCKED("Заблокирован");
 
-    private String name;
+    private String nameAuthority;
 
-    private Authority(String name) {
-        this.name = name;
+    Authority(String nameAuthority) {
+        this.nameAuthority = nameAuthority;
+    }
+
+    public String getNameAuthority() {
+        return nameAuthority;
     }
 
     @Override
     public String toString() {
-        return name;
+        return nameAuthority;
     }
 }

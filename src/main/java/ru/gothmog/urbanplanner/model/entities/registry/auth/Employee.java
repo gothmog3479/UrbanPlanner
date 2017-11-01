@@ -14,7 +14,7 @@ import javax.persistence.*;
  * @author d.grushetskiy
  */
 @Entity
-@Table(name = "employee", indexes = {@javax.persistence.Index(name = "idx_employee_username", columnList = "username", unique = true)})
+@Table(name = "employee", indexes = {@javax.persistence.Index(name = "idx_employee_user_id", columnList = "user_id", unique = true)})
 @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)
 @Audited
 @AuditAnnotation(title = "Сотрудник")
@@ -36,16 +36,13 @@ public class Employee implements RegistryItem, CloneableEntity {
     @Column(name = "last_name", nullable = false, length = 128)
     private String lastName = "";
 
-    @OneToOne(cascade = CascadeType.ALL, optional = false)
-    @JoinColumn(name = "username")
+    @OneToOne(targetEntity = EmployeeUser.class, fetch = FetchType.EAGER)
+    @JoinColumn(nullable = false, name = "user_id")
     private EmployeeUser user;
 
     // должность
     @Column(length = 512)
     private String job;
-
-    @Column(name = "email", nullable = false, length = 150)
-    private String email;
 
     @Column(name = "full_name", length = 512, nullable = false)
     private String fullName;
@@ -121,13 +118,6 @@ public class Employee implements RegistryItem, CloneableEntity {
         this.fullName = fullName;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
 
     @Override
     @Transient

@@ -52,7 +52,7 @@ $(window).on('message', function (e) {
     if (!(s.data instanceof Blob)) {
         f = new FormData();
         $.each(s.data, function (i, v) {
-            f.append(v.name, v.value);
+            f.append(v.nameAuthority, v.value);
         });
         s.data = f;
     }

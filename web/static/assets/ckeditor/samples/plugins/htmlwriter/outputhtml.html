@@ -10,10 +10,10 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 	<script src="../../../ckeditor.js"></script>
 	<script src="../../../samples/sample.js"></script>
 	<link href="../../../samples/sample.css" rel="stylesheet">
-	<meta name="ckeditor-sample-required-plugins" content="sourcearea">
-	<meta name="ckeditor-sample-name" content="Output HTML">
-	<meta name="ckeditor-sample-group" content="Advanced Samples">
-	<meta name="ckeditor-sample-description" content="Configuring CKEditor to produce legacy HTML 4 code.">
+	<meta nameAuthority="ckeditor-sample-required-plugins" content="sourcearea">
+	<meta nameAuthority="ckeditor-sample-nameAuthority" content="Output HTML">
+	<meta nameAuthority="ckeditor-sample-group" content="Advanced Samples">
+	<meta nameAuthority="ckeditor-sample-description" content="Configuring CKEditor to produce legacy HTML 4 code.">
 </head>
 <body>
 	<h1 class="samples">
@@ -53,7 +53,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 			<label for="editor1">
 				Editor 1:
 			</label>
-			<textarea cols="80" id="editor1" name="editor1" rows="10">&lt;p&gt;This is some &lt;b&gt;sample text&lt;/b&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
+			<textarea cols="80" id="editor1" nameAuthority="editor1" rows="10">&lt;p&gt;This is some &lt;b&gt;sample text&lt;/b&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
 			<script>
 
 				CKEDITOR.replace( 'editor1', {
@@ -119,14 +119,14 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 					 * Styles combo.
 					 */
 					stylesSet: [
-						{ name: 'Computer Code', element: 'code' },
-						{ name: 'Keyboard Phrase', element: 'kbd' },
-						{ name: 'Sample Text', element: 'samp' },
-						{ name: 'Variable', element: 'var' },
-						{ name: 'Deleted Text', element: 'del' },
-						{ name: 'Inserted Text', element: 'ins' },
-						{ name: 'Cited Work', element: 'cite' },
-						{ name: 'Inline Quotation', element: 'q' }
+						{ nameAuthority: 'Computer Code', element: 'code' },
+						{ nameAuthority: 'Keyboard Phrase', element: 'kbd' },
+						{ nameAuthority: 'Sample Text', element: 'samp' },
+						{ nameAuthority: 'Variable', element: 'var' },
+						{ nameAuthority: 'Deleted Text', element: 'del' },
+						{ nameAuthority: 'Inserted Text', element: 'ins' },
+						{ nameAuthority: 'Cited Work', element: 'cite' },
+						{ nameAuthority: 'Inline Quotation', element: 'q' }
 					],
 
 					on: { 'instanceReady': configureHtmlOutput }
@@ -161,7 +161,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 						elements: {
 							$: function( element ) {
 								// Output dimensions of images as width and height
-								if ( element.name == 'img' ) {
+								if ( element.nameAuthority == 'img' ) {
 									var style = element.attributes.style;
 
 									if ( style ) {
@@ -186,7 +186,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 								}
 
 								// Output alignment of paragraphs using align
-								if ( element.name == 'p' ) {
+								if ( element.nameAuthority == 'p' ) {
 									style = element.attributes.style;
 
 									if ( style ) {

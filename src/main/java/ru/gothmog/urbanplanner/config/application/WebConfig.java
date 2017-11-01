@@ -8,7 +8,6 @@ import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.format.FormatterRegistry;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
@@ -22,12 +21,13 @@ import org.thymeleaf.templatemode.TemplateMode;
 @Configuration
 @EnableWebMvc
 @ComponentScan({"ru.gothmog.urbanplanner.config.*",
-                "ru.gothmog.urbanplanner.model.dao",
-                "ru.gothmog.urbanplanner.model.entities",
-                "ru.gothmog.urbanplanner.controller",
-                "ru.gothmog.urbanplanner.core",
-                "ru.gothmog.urbanplanner.utility",
-                "ru.gothmog.urbanplanner.*"})
+        "ru.gothmog.urbanplanner.model.dao",
+        "ru.gothmog.urbanplanner.model.entities",
+        "ru.gothmog.urbanplanner.controller",
+        "ru.gothmog.urbanplanner.core",
+        "ru.gothmog.urbanplanner.model.utility",
+        "ru.gothmog.urbanplanner.service",
+        "ru.gothmog.urbanplanner.*"})
 public class WebConfig extends WebMvcConfigurerAdapter implements ApplicationContextAware {
     private static final String TEMPLATES = "/WEB-INF/templates/";
 

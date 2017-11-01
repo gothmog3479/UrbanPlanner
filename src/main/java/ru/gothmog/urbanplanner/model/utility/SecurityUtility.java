@@ -1,4 +1,4 @@
-package ru.gothmog.urbanplanner.utility;
+package ru.gothmog.urbanplanner.model.utility;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

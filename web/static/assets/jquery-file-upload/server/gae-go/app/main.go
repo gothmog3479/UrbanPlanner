@@ -48,7 +48,7 @@ type FileInfo struct {
 	Key          appengine.BlobKey `json:"-"`
 	Url          string            `json:"url,omitempty"`
 	ThumbnailUrl string            `json:"thumbnail_url,omitempty"`
-	Name         string            `json:"name"`
+	Name         string            `json:"nameAuthority"`
 	Type         string            `json:"type"`
 	Size         int64             `json:"size"`
 	Error        string            `json:"error,omitempty"`
@@ -171,11 +171,11 @@ func handleUploads(r *http.Request) (fileInfos []*FileInfo) {
 	check(err)
 	part, err := mr.NextPart()
 	for err == nil {
-		if name := part.FormName(); name != "" {
+		if nameAuthority := part.FormName(); nameAuthority != "" {
 			if part.FileName() != "" {
 				fileInfos = append(fileInfos, handleUpload(r, part))
 			} else {
-				r.Form[name] = append(r.Form[name], getFormValue(part))
+				r.Form[nameAuthority] = append(r.Form[nameAuthority], getFormValue(part))
 			}
 		}
 		part, err = mr.NextPart()

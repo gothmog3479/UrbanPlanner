@@ -9,6 +9,15 @@ import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.jdbc.JdbcDaoImpl;
+import ru.gothmog.urbanplanner.model.dao.registry.auth.EmployeeAuthorityDao;
+import ru.gothmog.urbanplanner.model.dao.registry.auth.EmployeeUserDao;
+import ru.gothmog.urbanplanner.model.dao.registry.auth.PasswordResetTokenDao;
+import ru.gothmog.urbanplanner.model.dao.registry.auth.impl.EmployeeAuthorityDaoImpl;
+import ru.gothmog.urbanplanner.model.dao.registry.auth.impl.EmployeeUserDaoImpl;
+import ru.gothmog.urbanplanner.model.dao.registry.auth.impl.PasswordResetTokenDaoImpl;
+import ru.gothmog.urbanplanner.model.entities.registry.auth.EmployeeAuthority;
+import ru.gothmog.urbanplanner.model.entities.registry.auth.EmployeeUser;
+import ru.gothmog.urbanplanner.model.entities.registry.auth.PasswordResetToken;
 
 @Configuration
 @ComponentScan(value = {"ru.gothmog.urbanplanner.*"})
@@ -18,6 +27,7 @@ public class AppConfig {
     private Environment environment;
     @Autowired
     private HibernateConfig hibernateConfig;
+
 
     @Bean
     public UserDetailsService userDetailsService() {
@@ -33,6 +43,21 @@ public class AppConfig {
         JdbcTemplate jdbcTemplate = new JdbcTemplate();
         jdbcTemplate.setDataSource(hibernateConfig.dataSource());
         return jdbcTemplate;
+    }
+
+    @Bean
+    public EmployeeUserDao employeeUserDao() {
+        return new EmployeeUserDaoImpl(EmployeeUser.class);
+    }
+
+    @Bean
+    public PasswordResetTokenDao passwordResetTokenDao(){
+        return new PasswordResetTokenDaoImpl(PasswordResetToken.class);
+    }
+
+    @Bean
+    public EmployeeAuthorityDao employeeAuthorityDao(){
+        return new EmployeeAuthorityDaoImpl(EmployeeAuthority.class);
     }
 
 }

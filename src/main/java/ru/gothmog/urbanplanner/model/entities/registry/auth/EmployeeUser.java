@@ -14,8 +14,8 @@ import ru.gothmog.urbanplanner.model.entities.IsogdEntity;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.io.UnsupportedEncodingException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * @author d.grushetskiy
@@ -30,7 +30,11 @@ public class EmployeeUser implements Serializable, IsogdEntity, CloneableEntity 
     private static final Logger logger = LoggerFactory.getLogger(EmployeeUser.class);
 
     @Id
-    @Column(name = "username", nullable = false, length = 64)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "user_id")
+    private Long id;
+
+    @Column(name = "username", unique = true, nullable = false)
     private String username;
 
     @Column(length = 50, nullable = false)
@@ -39,9 +43,18 @@ public class EmployeeUser implements Serializable, IsogdEntity, CloneableEntity 
     @Column
     private Boolean enabled = true;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,
-            fetch = FetchType.LAZY)
-    private List<EmployeeAuthority> authorities;
+    @Column(name = "email", nullable = false, length = 150)
+    private String email;
+
+//    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true,
+//            fetch = FetchType.LAZY)
+//    private List<EmployeeAuthorityDao> authorities;
+
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "user_authorities",
+            joinColumns = {@JoinColumn(name = "user_id")},
+            inverseJoinColumns = {@JoinColumn(name = "authorities_id")})
+    private Set<EmployeeAuthority> authorities = new HashSet<>();
 
     @Transient
     private String prePassword;
@@ -70,6 +83,14 @@ public class EmployeeUser implements Serializable, IsogdEntity, CloneableEntity 
         this.enabled = enabled;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
     public String getPrePassword() {
         return prePassword;
     }
@@ -85,13 +106,13 @@ public class EmployeeUser implements Serializable, IsogdEntity, CloneableEntity 
         }
     }
 
-    public List<EmployeeAuthority> getAuthorities() {
+    public Set<EmployeeAuthority> getAuthorities() {
         if (authorities == null)
-            authorities = new ArrayList<EmployeeAuthority>();
+            authorities = new HashSet<>();
         return authorities;
     }
 
-    public void setAuthorities(List<EmployeeAuthority> authorities) {
+    public void setAuthorities(Set<EmployeeAuthority> authorities) {
         this.authorities = authorities;
     }
 
@@ -104,12 +125,12 @@ public class EmployeeUser implements Serializable, IsogdEntity, CloneableEntity 
 
     @Override
     public Long getId() {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        return id;
     }
 
     @Override
     public void setId(Long id) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        this.id = id;
     }
 
     @Override
@@ -137,7 +158,6 @@ public class EmployeeUser implements Serializable, IsogdEntity, CloneableEntity 
     public void charge(IsogdEntity entity) throws CloneNotSupportedException {
         EmployeeUser ret_val = (EmployeeUser) entity;
         lazyCharge(entity);
-        ret_val.setAuthorities(CloneHelper.cloneAuthoritiesList(getAuthorities()));
-
+        ret_val.setAuthorities(CloneHelper.cloneAuthoritiesSet(getAuthorities()));
     }
 }

@@ -275,7 +275,7 @@ version 1.2 (5/31/09)
 		- 'className' CalEvent attribute
 		- 'source' CalEvent attribute
 		- dynamically get/add/remove/update events of current month
-		- locale improvements: change month/day name text
+		- locale improvements: change month/day nameAuthority text
 		- better date formatting ($.fullCalendar.formatDate)
 		- multiple 'event sources' allowed
 			- dynamically add/remove event sources

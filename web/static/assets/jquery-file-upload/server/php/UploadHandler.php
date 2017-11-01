@@ -188,7 +188,7 @@ class UploadHandler
     protected function set_file_delete_properties($file) {
         $file->delete_url = $this->options['script_url']
             .$this->get_query_separator($this->options['script_url'])
-            .'file='.rawurlencode($file->name);
+            .'file='.rawurlencode($file->nameAuthority);
         $file->delete_type = $this->options['delete_type'];
         if ($file->delete_type !== 'DELETE') {
             $file->delete_url .= '&_method=DELETE';
@@ -226,16 +226,16 @@ class UploadHandler
     protected function get_file_object($file_name) {
         if ($this->is_valid_file_object($file_name)) {
             $file = new stdClass();
-            $file->name = $file_name;
+            $file->nameAuthority = $file_name;
             $file->size = $this->get_file_size(
                 $this->get_upload_path($file_name)
             );
-            $file->url = $this->get_download_url($file->name);
+            $file->url = $this->get_download_url($file->nameAuthority);
             foreach($this->options['image_versions'] as $version => $options) {
                 if (!empty($version)) {
                     if (is_file($this->get_upload_path($file_name, $version))) {
                         $file->{$version.'_url'} = $this->get_download_url(
-                            $file->name,
+                            $file->nameAuthority,
                             $version
                         );
                     }
@@ -361,7 +361,7 @@ class UploadHandler
             $file->error = $this->get_error_message('post_max_size');
             return false;
         }
-        if (!preg_match($this->options['accept_file_types'], $file->name)) {
+        if (!preg_match($this->options['accept_file_types'], $file->nameAuthority)) {
             $file->error = $this->get_error_message('accept_file_types');
             return false;
         }
@@ -416,51 +416,51 @@ class UploadHandler
         return ' ('.$index.')'.$ext;
     }
 
-    protected function upcount_name($name) {
+    protected function upcount_name($nameAuthority) {
         return preg_replace_callback(
             '/(?:(?: \(([\d]+)\))?(\.[^.]+))?$/',
             array($this, 'upcount_name_callback'),
-            $name,
+            $nameAuthority,
             1
         );
     }
 
-    protected function get_unique_filename($name, $type, $index, $content_range) {
-        while(is_dir($this->get_upload_path($name))) {
-            $name = $this->upcount_name($name);
+    protected function get_unique_filename($nameAuthority, $type, $index, $content_range) {
+        while(is_dir($this->get_upload_path($nameAuthority))) {
+            $nameAuthority = $this->upcount_name($nameAuthority);
         }
         // Keep an existing filename if this is part of a chunked upload:
         $uploaded_bytes = $this->fix_integer_overflow(intval($content_range[1]));
-        while(is_file($this->get_upload_path($name))) {
+        while(is_file($this->get_upload_path($nameAuthority))) {
             if ($uploaded_bytes === $this->get_file_size(
-                    $this->get_upload_path($name))) {
+                    $this->get_upload_path($nameAuthority))) {
                 break;
             }
-            $name = $this->upcount_name($name);
+            $nameAuthority = $this->upcount_name($nameAuthority);
         }
-        return $name;
+        return $nameAuthority;
     }
 
-    protected function trim_file_name($name, $type, $index, $content_range) {
+    protected function trim_file_name($nameAuthority, $type, $index, $content_range) {
         // Remove path information and dots around the filename, to prevent uploading
         // into different directories or replacing hidden system files.
         // Also remove control characters and spaces (\x00..\x20) around the filename:
-        $name = trim(basename(stripslashes($name)), ".\x00..\x20");
+        $nameAuthority = trim(basename(stripslashes($nameAuthority)), ".\x00..\x20");
         // Use a timestamp for empty filenames:
-        if (!$name) {
-            $name = str_replace('.', '-', microtime(true));
+        if (!$nameAuthority) {
+            $nameAuthority = str_replace('.', '-', microtime(true));
         }
         // Add missing file extension for known image types:
-        if (strpos($name, '.') === false &&
+        if (strpos($nameAuthority, '.') === false &&
             preg_match('/^image\/(gif|jpe?g|png)/', $type, $matches)) {
-            $name .= '.'.$matches[1];
+            $nameAuthority .= '.'.$matches[1];
         }
-        return $name;
+        return $nameAuthority;
     }
 
-    protected function get_file_name($name, $type, $index, $content_range) {
+    protected function get_file_name($nameAuthority, $type, $index, $content_range) {
         return $this->get_unique_filename(
-            $this->trim_file_name($name, $type, $index, $content_range),
+            $this->trim_file_name($nameAuthority, $type, $index, $content_range),
             $type,
             $index,
             $content_range
@@ -503,10 +503,10 @@ class UploadHandler
         return $success;
     }
 
-    protected function handle_file_upload($uploaded_file, $name, $size, $type, $error,
+    protected function handle_file_upload($uploaded_file, $nameAuthority, $size, $type, $error,
             $index = null, $content_range = null) {
         $file = new stdClass();
-        $file->name = $this->get_file_name($name, $type, $index, $content_range);
+        $file->nameAuthority = $this->get_file_name($nameAuthority, $type, $index, $content_range);
         $file->size = $this->fix_integer_overflow(intval($size));
         $file->type = $type;
         if ($this->validate($uploaded_file, $file, $error, $index)) {
@@ -515,7 +515,7 @@ class UploadHandler
             if (!is_dir($upload_dir)) {
                 mkdir($upload_dir, $this->options['mkdir_mode'], true);
             }
-            $file_path = $this->get_upload_path($file->name);
+            $file_path = $this->get_upload_path($file->nameAuthority);
             $append_file = $content_range && is_file($file_path) &&
                 $file->size > $this->get_file_size($file_path);
             if ($uploaded_file && is_uploaded_file($uploaded_file)) {
@@ -542,12 +542,12 @@ class UploadHandler
                 if ($this->options['orient_image']) {
                     $this->orient_image($file_path);
                 }
-                $file->url = $this->get_download_url($file->name);
+                $file->url = $this->get_download_url($file->nameAuthority);
                 foreach($this->options['image_versions'] as $version => $options) {
-                    if ($this->create_scaled_image($file->name, $version, $options)) {
+                    if ($this->create_scaled_image($file->nameAuthority, $version, $options)) {
                         if (!empty($version)) {
                             $file->{$version.'_url'} = $this->get_download_url(
-                                $file->name,
+                                $file->nameAuthority,
                                 $version
                             );
                         } else {
@@ -722,7 +722,7 @@ class UploadHandler
             foreach ($upload['tmp_name'] as $index => $value) {
                 $files[] = $this->handle_file_upload(
                     $upload['tmp_name'][$index],
-                    $file_name ? $file_name : $upload['name'][$index],
+                    $file_name ? $file_name : $upload['nameAuthority'][$index],
                     $size ? $size : $upload['size'][$index],
                     $upload['type'][$index],
                     $upload['error'][$index],
@@ -735,8 +735,8 @@ class UploadHandler
             // $_FILES is a one-dimensional array:
             $files[] = $this->handle_file_upload(
                 isset($upload['tmp_name']) ? $upload['tmp_name'] : null,
-                $file_name ? $file_name : (isset($upload['name']) ?
-                        $upload['name'] : null),
+                $file_name ? $file_name : (isset($upload['nameAuthority']) ?
+                        $upload['nameAuthority'] : null),
                 $size ? $size : (isset($upload['size']) ?
                         $upload['size'] : $_SERVER['CONTENT_LENGTH']),
                 isset($upload['type']) ?

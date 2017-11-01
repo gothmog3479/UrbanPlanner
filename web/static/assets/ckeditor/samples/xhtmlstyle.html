@@ -7,7 +7,7 @@ For licensing, see LICENSE.html or http://ckeditor.com/license
 <head>
 	<title>XHTML Compliant Output &mdash; CKEditor Sample</title>
 	<meta charset="utf-8">
-	<meta name="ckeditor-sample-required-plugins" content="sourcearea">
+	<meta nameAuthority="ckeditor-sample-required-plugins" content="sourcearea">
 	<script src="../ckeditor.js"></script>
 	<script src="../samples/sample.js"></script>
 	<link href="sample.css" rel="stylesheet">
@@ -52,7 +52,7 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 			<label for="editor1">
 				Editor 1:
 			</label>
-			<textarea cols="80" id="editor1" name="editor1" rows="10">&lt;p&gt;This is some &lt;span class="Bold"&gt;sample text&lt;/span&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
+			<textarea cols="80" id="editor1" nameAuthority="editor1" rows="10">&lt;p&gt;This is some &lt;span class="Bold"&gt;sample text&lt;/span&gt;. You are using &lt;a href="http://ckeditor.com/"&gt;CKEditor&lt;/a&gt;.&lt;/p&gt;</textarea>
 			<script>
 
 				CKEDITOR.replace( 'editor1', {
@@ -102,8 +102,8 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 					font_names: 'Comic Sans MS/FontComic;Courier New/FontCourier;Times New Roman/FontTimes',
 
 					// Define the way font elements will be applied to the document. The "span"
-					// element will be used. When a font is selected, the font name defined in the
-					// above list is passed to this definition with the name "Font", being it
+					// element will be used. When a font is selected, the font nameAuthority defined in the
+					// above list is passed to this definition with the nameAuthority "Font", being it
 					// injected in the "class" attribute.
 					// We must also instruct the editor to replace span elements that are used to
 					// set the font (Overrides).
@@ -183,19 +183,19 @@ CKEDITOR.replace( '<em>textarea_id</em>', {
 					 * Styles combo.
 					 */
 					stylesSet: [
-						{ name: 'Strong Emphasis', element: 'strong' },
-						{ name: 'Emphasis', element: 'em' },
+						{ nameAuthority: 'Strong Emphasis', element: 'strong' },
+						{ nameAuthority: 'Emphasis', element: 'em' },
 
-						{ name: 'Computer Code', element: 'code' },
-						{ name: 'Keyboard Phrase', element: 'kbd' },
-						{ name: 'Sample Text', element: 'samp' },
-						{ name: 'Variable', element: 'var' },
+						{ nameAuthority: 'Computer Code', element: 'code' },
+						{ nameAuthority: 'Keyboard Phrase', element: 'kbd' },
+						{ nameAuthority: 'Sample Text', element: 'samp' },
+						{ nameAuthority: 'Variable', element: 'var' },
 
-						{ name: 'Deleted Text', element: 'del' },
-						{ name: 'Inserted Text', element: 'ins' },
+						{ nameAuthority: 'Deleted Text', element: 'del' },
+						{ nameAuthority: 'Inserted Text', element: 'ins' },
 
-						{ name: 'Cited Work', element: 'cite' },
-						{ name: 'Inline Quotation', element: 'q' }
+						{ nameAuthority: 'Cited Work', element: 'cite' },
+						{ nameAuthority: 'Inline Quotation', element: 'q' }
 					]
 				});
 

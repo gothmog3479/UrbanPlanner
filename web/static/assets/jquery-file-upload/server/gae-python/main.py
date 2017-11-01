@@ -56,7 +56,7 @@ class UploadHandler(webapp2.RequestHandler):
     def write_blob(self, data, info):
         blob = files.blobstore.create(
             mime_type=info['type'],
-            _blobinfo_uploaded_filename=info['name']
+            _blobinfo_uploaded_filename=info['nameAuthority']
         )
         with files.open(blob, 'a') as f:
             f.write(data)
@@ -66,11 +66,11 @@ class UploadHandler(webapp2.RequestHandler):
     def handle_upload(self):
         results = []
         blob_keys = []
-        for name, fieldStorage in self.request.POST.items():
+        for nameAuthority, fieldStorage in self.request.POST.items():
             if type(fieldStorage) is unicode:
                 continue
             result = {}
-            result['name'] = re.sub(r'^.*\\', '',
+            result['nameAuthority'] = re.sub(r'^.*\\', '',
                 fieldStorage.filename)
             result['type'] = fieldStorage.type
             result['size'] = self.get_file_size(fieldStorage.file)
@@ -96,7 +96,7 @@ class UploadHandler(webapp2.RequestHandler):
                 if not 'url' in result:
                     result['url'] = self.request.host_url +\
                         '/' + blob_key + '/' + urllib.quote(
-                            result['name'].encode('utf-8'), '')
+                            result['nameAuthority'].encode('utf-8'), '')
             results.append(result)
         deferred.defer(
             cleanup,
